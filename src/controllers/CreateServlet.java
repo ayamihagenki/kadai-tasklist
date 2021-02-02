@@ -45,11 +45,14 @@ public class CreateServlet extends HttpServlet {
             t.setCreated_at(currentTime);
             t.setUpdated_at(currentTime);
 
+            //データベースに保存
             em.getTransaction().begin();
             em.persist(t);
             em.getTransaction().commit();
+            // フラッシュメッセージはここを追記↓
+            request.getSession().setAttribute("flush", "登録が完了しました。");
             em.close();
-
+            // indexサーブレットへリダイレクト
             response.sendRedirect(request.getContextPath() + "/index");
         }
     }
