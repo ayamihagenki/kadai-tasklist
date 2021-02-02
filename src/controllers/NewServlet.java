@@ -33,7 +33,9 @@ public class NewServlet extends HttpServlet {
         // CSRF対策
         request.setAttribute("_token", request.getSession().getId());
 
-        // おまじないとしてのインスタンスを生成
+        //インスタンス生成は画面表示時のエラー回避のため
+        //リクエストスコープのtasukuオブジェクトにデータが入っていなかったらエラーになっちゃうので
+        //エラーを回避するために文字数0のデータをフォームに渡す
         request.setAttribute("task", new Task());
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/new.jsp");
